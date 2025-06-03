@@ -8,8 +8,18 @@
     "lib": [
       "ESNext"
     ],
-    "types": ["vite/client"],
+    "types": ["vite/client", "bun"],
     "jsx": "react-jsx",
-    "jsxImportSource": "hono/jsx"
+    "jsxImportSource": "hono/jsx",
+    "baseUrl": "./src",
+    "paths": {
+      "@connection/*": ["connection/*"],
+      "@routes/*": ["routes/*"],
+      "@lib/*": ["lib/*"],
+      "@services/*": ["services/*"],
+      "@contexts/*": ["contexts/*"],
+      "@assets/*": ["assets/*"],
+      "@middleware/*": ["middleware/*"],
+    }
   },
 }

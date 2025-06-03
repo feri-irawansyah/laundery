@@ -9,10 +9,16 @@
     "cf-typegen": "wrangler types --env-interface CloudflareBindings"
   },
   "dependencies": {
-    "hono": "^4.7.11"
+    "@neondatabase/serverless": "^1.0.0",
+    "@types/bun": "^1.2.15",
+    "bcrypt-edge": "^0.1.1",
+    "hono": "^4.7.11",
+    "zod": "^3.25.49"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.2.3",
+    "dotenv": "^16.5.0",
+    "tsconfig-paths": "^4.2.0",
     "vite": "^6.3.5",
     "vite-ssr-components": "^0.2.0",
     "wrangler": "^4.17.0"

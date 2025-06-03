@@ -1,5 +1,5 @@
+import { App } from '@lib/App'
 import { Hono } from 'hono'
-import { App } from '../../lib/App'
 
 const page = new Hono()
 
