@@ -2,28 +2,31 @@ import { LoginUserRequest, RegisterUserRequest, toUserResponse, User, UserRespon
 import { AuthValidation } from '@contexts/validations/auth-validation';
 import { Pool } from '@neondatabase/serverless';
 import { HTTPException } from 'hono/http-exception';
-import { genSaltSync, hashSync, compareSync } from 'bcrypt-edge';
+import { hashSync, compareSync } from 'bcrypt-edge';
 
 export class UserService {
 
     static async login(request: LoginUserRequest, connection: Pool): Promise<UserResponse> {
         request = AuthValidation.LOGIN.parse(request)
 
-        // const isPasswordValid = await Bun.password.verify(request.password, request.password, 'bcrypt')
-
-        const user: any = await connection.query('SELECT * FROM users WHERE username = $1', [request.username])
+        const user: any = await connection.query('SELECT * FROM users WHERE email = $1', [request.email])
         if (user.rowCount === 0) {
             throw new HTTPException(401, {
-              message: 'Invalid username or password'
+              message: 'User not registered'
             })
         }
 
-        const response = toUserResponse(user)
-        // response.token = user.token!;
+        if (!compareSync(request.password, user.rows[0].password)) {
+            throw new HTTPException(401, {
+              message: 'Invalid password'
+            })
+        }
+
+        const response = toUserResponse(user.rows[0]);
         return response
     }
 
-    static async register(request: RegisterUserRequest, connection: Pool): Promise<{ message: string }> {
+    static async register(request: RegisterUserRequest, connection: Pool, salt: number): Promise<{ message: string }> {
       request = AuthValidation.REGISTER.parse(request)
 
       let user: any = await connection.query('SELECT COUNT(*) FROM users WHERE email = $1', [request.email])
@@ -34,8 +37,6 @@ export class UserService {
         })
       }
       
-      const saltRounds = 10; // Recommended salt rounds for bcrypt
-      const salt = genSaltSync(saltRounds);
       const hashedPassword = hashSync(request.password, salt);
 
       request.password = hashedPassword;

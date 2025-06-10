@@ -13,7 +13,7 @@ authController.post('/auth/register', async (c) => {
 
     const connection = getConnection(c.env.DATABASE_URL);
 
-    const response = await UserService.register(request, connection);
+    const response = await UserService.register(request, connection, c.env.SALT);
 
     return c.json({
         data: response
@@ -22,17 +22,17 @@ authController.post('/auth/register', async (c) => {
 
 authController.get('/auth/session', checkSession, (c) => {
 
-  const user = c.get('user')
+  const data: any = c.get('jwtPayload')
   
-  return c.json({ message: `Hello ${user.username}` })
+  return c.json({ data: data })
 });
 
 authController.post('/auth/login', async (c) => {
     const request = await c.req.json() as LoginUserRequest;
 
-    let user = {email: "example@gmail.com", username: "example"};
+    let response = await UserService.login(request, getConnection(c.env.DATABASE_URL));
 
-    const token = await generateToken(user)
+    const token = await generateToken(response);
 
     const cookie = serialize('laundery', token, {
         httpOnly: true,

@@ -13,15 +13,11 @@ export async function checkSession(c: Context, next: Next) {
 
   const token = getCookie(c, 'laundery')
 
-  console.log(token)
-  
-
   if (!token) return c.text('Unauthorized', 400)
 
   try {
     const user = await verify(token, JWT_SECRET)
-    c.set('user', user)
-    console.log(user)
+    c.set('jwtPayload', user)
     await next()
   } catch (e) {
     return c.text('Invalid token', 401)

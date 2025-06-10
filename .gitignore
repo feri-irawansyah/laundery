@@ -1,0 +1,5 @@
+# Ignore hanya untuk root
+/node_modules/
+/package.json
+/package-lock.json
+/.env

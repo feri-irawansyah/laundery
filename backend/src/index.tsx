@@ -7,7 +7,8 @@ import { HTTPException } from 'hono/http-exception'
 import { authController } from '@routes/api/auth'
 
 export type ApplicationVariables = {
-  DATABASE_URL: string
+  DATABASE_URL: string,
+  SALT: number
 }
 
 const app = new Hono<{ Bindings: ApplicationVariables }>()
