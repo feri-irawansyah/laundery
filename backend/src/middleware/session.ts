@@ -1,6 +1,7 @@
 import { Claims } from "@contexts/models/auth-model"
 import { Context, Next } from "hono"
 import { getCookie } from "hono/cookie"
+import { HTTPException } from "hono/http-exception"
 import { sign, verify } from "hono/jwt"
 
 const JWT_SECRET = 'secret'
@@ -13,13 +14,19 @@ export async function checkSession(c: Context, next: Next) {
 
   const token = getCookie(c, 'laundery')
 
-  if (!token) return c.text('Unauthorized', 400)
+  if (!token) {
+    throw new HTTPException(401, {
+      message: 'Unauthorized'
+    })
+  }
 
   try {
     const user = await verify(token, JWT_SECRET)
     c.set('jwtPayload', user)
     await next()
   } catch (e) {
-    return c.text('Invalid token', 401)
+    throw new HTTPException(401, {
+      message: 'Invalid token'
+    })
   }
 }
