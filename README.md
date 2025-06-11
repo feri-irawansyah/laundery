@@ -7,7 +7,7 @@
 
 ### 👤 User Journey (Pelanggan)
 - [x] Registrasi  
-- [ ] Aktivasi pake OTP  
+- [x] Aktivasi pake OTP  
 - [x] Login  
 - [ ] Order Laundry  
 - [ ] Pilih jenis layanan (cuci kering, setrika saja, ekspres, dll)  
@@ -24,8 +24,8 @@
 - [ ] Review dan Riwayat  
 - [ ] Lihat histori order  
 - [ ] Beri rating & ulasan  
-- [ ] Forget Password  
-- [ ] Change Password  
+- [x] Forget Password  
+- [x] Change Password  
 
 ### 🧑‍💼 Admin Journey (Pengelola Laundry)
 - [ ] Manajemen Order  
