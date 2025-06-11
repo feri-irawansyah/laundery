@@ -11,7 +11,7 @@ export class UserService {
 
         const user: any = await connection.query('SELECT * FROM users WHERE email = $1', [request.email])
         if (user.rowCount === 0) {
-            throw new HTTPException(401, {
+            throw new HTTPException(404, {
               message: 'User not registered'
             })
         }
@@ -19,6 +19,12 @@ export class UserService {
         if (!compareSync(request.password, user.rows[0].password)) {
             throw new HTTPException(401, {
               message: 'Invalid password'
+            })
+        }
+
+        if (user.rows[0].disable_login) {
+            throw new HTTPException(500, {
+              message: 'Unauthorized'
             })
         }
 
