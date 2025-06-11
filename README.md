@@ -6,7 +6,7 @@
 ## 🔥 Progress Web Api
 
 ### 👤 User Journey (Pelanggan)
-- [ ] Registrasi  
+- [x] Registrasi  
 - [ ] Aktivasi pake OTP  
 - [x] Login  
 - [ ] Order Laundry  
