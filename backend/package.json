@@ -13,6 +13,7 @@
     "@types/bun": "^1.2.15",
     "bcrypt-edge": "^0.1.1",
     "hono": "^4.7.11",
+    "resend": "^4.5.2",
     "zod": "^3.25.49"
   },
   "devDependencies": {

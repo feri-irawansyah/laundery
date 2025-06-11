@@ -1,6 +1,9 @@
 export type Claims = {
     username: string,
-    email: string
+    email: string,
+    role_user: number,
+    picture: string,
+    disable_login: boolean
 }
 
 export type User = {
@@ -23,7 +26,7 @@ export type User = {
     otp_generated_link_date: Date,
     count_resend_activation: number,
     picture: string,
-    google_id: string,
+    google_id: string
 }
 
 export type RegisterUserRequest = {
@@ -31,6 +34,7 @@ export type RegisterUserRequest = {
     password: string;
     email: string;
     handphone: string;
+    role_user: number;
 }
 
 export type LoginUserRequest = {
@@ -38,20 +42,28 @@ export type LoginUserRequest = {
     password: string;
 }
 
-export type UpdateUserRequest = {
-    password?: string;
-    name?: string;
+export type ActivationRequest = {
+    token: string;
+    otp: string;
 }
 
-export type UserResponse = {
-    username: string;
+export type ResetPasswordRequest = {
     email: string;
-    token?: string;
+    password: string;
+    token: string;
+    otp: string;
 }
 
-export function toUserResponse(user: User): UserResponse {
+export type ForgetPasswordRequest = {
+    email: string;
+}
+
+export function toUserResponse(user: User): Claims {
     return {
         email: user.email,
-        username: user.username
+        username: user.username,
+        role_user: user.role_user,
+        picture: user.picture,
+        disable_login: user.disable_login,
     }
 }
