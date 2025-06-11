@@ -1,7 +1,7 @@
 import { getConnection } from "@contexts/connection/db";
-import { LoginUserRequest, RegisterUserRequest } from "@contexts/models/auth-model";
+import { ActivationRequest, ForgetPasswordRequest, LoginUserRequest, RegisterUserRequest, ResetPasswordRequest } from "@contexts/models/auth-model";
 import { checkSession, generateToken } from "@middleware/session";
-import { UserService } from "@services/auth-service";
+import { AuthService } from "@services/auth-service";
 import { Hono } from "hono";
 import { serialize } from "hono/utils/cookie";
 import { ApplicationVariables } from "index";
@@ -13,7 +13,43 @@ authController.post('/auth/register', async (c) => {
 
     const connection = getConnection(c.env.DATABASE_URL);
 
-    const response = await UserService.register(request, connection, c.env.SALT);
+    const response = await AuthService.register(request, connection, c.env);
+
+    return c.json({
+        data: response
+    })
+});
+
+authController.post('/auth/activation', async (c) => {
+    const request = await c.req.json() as ActivationRequest;
+
+    const connection = getConnection(c.env.DATABASE_URL);
+
+    const response = await AuthService.activation(request, connection);
+
+    return c.json({
+        data: response
+    })
+});
+
+authController.post('/auth/forget-password', async (c) => {
+    const request = await c.req.json() as ForgetPasswordRequest;
+
+    const connection = getConnection(c.env.DATABASE_URL);
+
+    const response = await AuthService.forgetPassword(request, connection, c.env);
+
+    return c.json({
+        data: response
+    })
+});
+
+authController.post('/auth/reset-password', async (c) => {
+    const request = await c.req.json() as ResetPasswordRequest;
+
+    const connection = getConnection(c.env.DATABASE_URL);
+
+    const response = await AuthService.resetPassword(request, connection, c.env);
 
     return c.json({
         data: response
@@ -30,7 +66,7 @@ authController.get('/auth/session', checkSession, (c) => {
 authController.post('/auth/login', async (c) => {
     const request = await c.req.json() as LoginUserRequest;
 
-    let response = await UserService.login(request, getConnection(c.env.DATABASE_URL));
+    let response = await AuthService.login(request, getConnection(c.env.DATABASE_URL));
 
     const token = await generateToken(response);
 
@@ -45,6 +81,6 @@ authController.post('/auth/login', async (c) => {
     c.header('Set-Cookie', cookie)
 
     return c.json({
-        data: "success"
+        data: "Login successfully"
     })
 });

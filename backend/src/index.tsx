@@ -8,7 +8,9 @@ import { authController } from '@routes/api/auth'
 
 export type ApplicationVariables = {
   DATABASE_URL: string,
-  SALT: number
+  SALT: number,
+  FRONT_URL: string,
+  SNAKE_API: string
 }
 
 const app = new Hono<{ Bindings: ApplicationVariables }>()
@@ -41,7 +43,7 @@ app.onError(async (err, c) => {
     } else if (err instanceof ZodError) {
         c.status(400)
         return c.json({
-            errors: err.message
+            errors: err.issues[0].message
         })
     } else {
         c.status(500)
