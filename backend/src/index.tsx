@@ -5,6 +5,9 @@ import ssrPage from '@routes/view/page'
 import { ZodError } from 'zod'
 import { HTTPException } from 'hono/http-exception'
 import { authController } from '@routes/api/auth'
+import { SwaggerUI, swaggerUI } from '@hono/swagger-ui'
+import { openAPISpecs } from 'hono-openapi'
+import { docsRoute } from '@middleware/docs'
 
 export type ApplicationVariables = {
   DATABASE_URL: string,
@@ -55,5 +58,7 @@ app.onError(async (err, c) => {
 
 // SSR page
 app.route('/', ssrPage)
+
+app.route('/', docsRoute);
 
 export default app

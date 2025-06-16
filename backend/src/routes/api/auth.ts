@@ -84,3 +84,19 @@ authController.post('/auth/login', async (c) => {
         data: "Login successfully"
     })
 });
+
+authController.post('/auth/logout', (c) => {
+    const cookie = serialize('laundery', '', {
+        httpOnly: true,
+        secure: false, // ganti ke true kalo HTTPS
+        sameSite: 'lax',
+        path: '/',
+        maxAge: 0,
+      })
+
+    c.header('Set-Cookie', cookie)
+
+    return c.json({
+        data: "Logout successfully"
+    })
+});

@@ -9,10 +9,13 @@
     "cf-typegen": "wrangler types --env-interface CloudflareBindings"
   },
   "dependencies": {
+    "@hono/swagger-ui": "^0.5.2",
+    "@hono/zod-openapi": "^0.19.8",
     "@neondatabase/serverless": "^1.0.0",
     "@types/bun": "^1.2.15",
     "bcrypt-edge": "^0.1.1",
     "hono": "^4.7.11",
+    "hono-openapi": "^0.4.8",
     "resend": "^4.5.2",
     "zod": "^3.25.49"
   },
