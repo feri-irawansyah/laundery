@@ -1,5 +1,5 @@
 import { ActivationRequest, ForgetPasswordRequest, LoginUserRequest, RegisterUserRequest, ResetPasswordRequest, toUserResponse, User, Claims } from '@contexts/models/auth-model';
-import { AuthValidation } from '@contexts/validations/auth-validation';
+import { AuthValidation } from '@middleware/validations/auth-validation';
 import { Pool } from '@neondatabase/serverless';
 import { HTTPException } from 'hono/http-exception';
 import { hashSync, compareSync } from 'bcrypt-edge';

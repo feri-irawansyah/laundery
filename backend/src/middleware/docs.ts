@@ -25,6 +25,10 @@ docsRoute.get(
           name: 'Order Endpoint',
           description: 'Endpoints related to order management'
         },
+        {
+          name: 'Generic Endpoint',
+          description: 'Endpoints related to generic management'
+        },
       ],
       paths: {
         '/api/auth/login': {
@@ -303,6 +307,45 @@ docsRoute.get(
                         },
                         },
                     },
+                },
+            },
+        },
+
+        // Generic Endpoint
+        '/api/generic/layanan': {
+            get: {
+                tags: ['Generic Endpoint'],
+                summary: 'Get Layanan',
+                description: 'Get Layanan',
+                responses: {
+                200: {
+                    description: 'Get Layanan Success',
+                    content: {
+                    'application/json': {
+                        example: { data: [
+                          { id: 1, name: 'Daily Kiloan' },
+                          { id: 2, name: 'Cuci & Setrika' },
+                        ] },
+                    },
+                    },
+                },
+                404: {
+                    description: 'Not Found',
+                    content: {
+                      'application/json': {
+                          example: { error: { message: 'Not Found' } },
+                      },
+                    },
+                },
+                
+                500: {
+                    description: 'Internal Server Error',
+                    content: {
+                    'application/json': {
+                        example: { error: { "message": "Invalid coiumn 'nama' in table 'layanan'" } },
+                    },
+                    },
+                },
                 },
             },
         },

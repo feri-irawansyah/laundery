@@ -5,9 +5,8 @@ import ssrPage from '@routes/view/page'
 import { ZodError } from 'zod'
 import { HTTPException } from 'hono/http-exception'
 import { authController } from '@routes/api/auth'
-import { SwaggerUI, swaggerUI } from '@hono/swagger-ui'
-import { openAPISpecs } from 'hono-openapi'
 import { docsRoute } from '@middleware/docs'
+import { genericController } from '@routes/api/generic'
 
 export type ApplicationVariables = {
   DATABASE_URL: string,
@@ -26,6 +25,7 @@ app.route('/api', api);
 
 // API Auth route endpoint
 app.route('/api', authController);
+app.route('/api', genericController);
 
 // Handler fallback untuk semua route /api/* yang gak ketemu
 app.all('/api/*', (c) => {

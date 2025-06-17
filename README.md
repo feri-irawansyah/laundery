@@ -10,7 +10,7 @@
 - [x] Aktivasi pake OTP  
 - [x] Login  
 - [ ] Order Laundry  
-- [ ] Pilih jenis layanan (cuci kering, setrika saja, ekspres, dll)  
+- [x] Pilih jenis layanan (cuci kering, setrika saja, ekspres, dll)  
 - [ ] Masukkan detail pakaian (jumlah, jenis)  
 - [ ] Pilih metode antar-jemput atau drop-off  
 - [ ] Tentukan jadwal pengambilan/pengantaran  
