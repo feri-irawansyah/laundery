@@ -20,7 +20,11 @@ docsRoute.get(
         {
           name: 'Authentication Endpoint',
           description: 'Endpoints related to user authentication'
-        }
+        },
+        {
+          name: 'Order Endpoint',
+          description: 'Endpoints related to order management'
+        },
       ],
       paths: {
         '/api/auth/login': {
@@ -62,6 +66,7 @@ docsRoute.get(
             },
           },
         },
+
         '/api/auth/session': {
             get: {
                 tags: ['Authentication Endpoint'],
